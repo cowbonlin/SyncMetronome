@@ -1,8 +1,44 @@
 import React from 'react';
+import Tone from 'tone';
 
+import Bpm from './Bpm';
 import '../styles/Main.css';
 
 class App extends React.Component {
+    state = { playing: false, bpm: 60 };
+    
+    componentDidMount() {
+        const option = { 
+            oscillator: { type  : 'sine' },
+            envelope: {
+                attack: 0.005,
+                decay: 0.1,
+                sustain: 0.03,
+                release: 0.1
+            }
+        };
+        const synth = new Tone.Synth(option).toMaster();
+        Tone.Transport.bpm.value = this.state.bpm;
+        Tone.Transport.scheduleRepeat( time => {
+            synth.triggerAttackRelease('C4', '0.1')
+        }, '4n');
+    }
+    
+    onPlayClicked = () => {
+        if (this.state.playing) {
+            Tone.Transport.stop();
+        }
+        else {
+            Tone.Transport.start();
+        }
+        this.setState({ playing: !this.state.playing });
+    }
+    
+    onBpmChange = bpm => {
+        this.setState({bpm: bpm});
+        Tone.Transport.bpm.value = bpm;
+    }
+    
     render() {
         return (
             <div className="ui textcontainer">
@@ -12,19 +48,10 @@ class App extends React.Component {
                             <div className="content">
                                 <h1 className="ui dividing header">Metronome</h1>
                                 
-                                <div className="row">
-                                    <div className="ui center aligned grid">
-                                        <div className="eight wide column">
-                                            <div className="ui massive input">
-                                                <input type="text" value="170" style={{width: '100px'}} />
-                                            </div>
-                                            <div className="description">BPM</div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <Bpm onBpmChange={this.onBpmChange} bpm={this.state.bpm} />
                                     
-                                <button className="massive circular ui icon teal button" style={{marginTop: '40px'}}>
-                                    <i className="icon play"></i>
+                                <button className="massive circular ui icon teal button" onClick={this.onPlayClicked} style={{marginTop: '40px'}}>
+                                    <i className={`icon ${this.state.playing? 'pause':'play' }`}></i>
                                 </button>
                                     
                                 <div className="ui three basic blue icon buttons" style={{marginTop: '40px'}}>
@@ -37,9 +64,9 @@ class App extends React.Component {
                                     <button className="ui button">
                                         <i className="cog icon"></i>
                                     </button>
+                                    
                                 </div>
-                                
-                                
+                                <button onClick={()=> {console.log(this.state)}}>hitme</button>
                             </div>
                         </div>
                     </div>
