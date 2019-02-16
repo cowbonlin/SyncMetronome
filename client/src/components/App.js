@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Bpm from './Bpm';
-import JamRoom from './JamRoom';
+import Room from './Room';
 import '../styles/Main.css';
 
 class App extends React.Component {    
@@ -10,7 +10,7 @@ class App extends React.Component {
             <div className="ui fluid textcontainer" id="app-container">
                 <div className="ui center aligned grid">
                     <div className="four wide column">
-                        <JamRoom />
+                        <Room />
                     </div>
                     
                     <div className="eight wide column">
@@ -20,7 +20,7 @@ class App extends React.Component {
                     <div className="four wide column">
                         <div className="ui fluid card">
                             <div className="content">
-                                left card
+                                Coming Soon...
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,17 @@
+h1#room-title {
+    margin-bottom: 50px;
+}
+
+button#create-room {
+    color: black;
+}
+
+div#room-code {
+    font-size: 23px;
+    width: 50%;
+    height: 30px;
+    margin: 30px auto;
+    background-color: #FAE232;
+    text-align: center;
+    line-height: 30px;
+}
