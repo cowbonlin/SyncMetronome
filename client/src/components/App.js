@@ -2,6 +2,7 @@ import React from 'react';
 import Tone from 'tone';
 
 import Bpm from './Bpm';
+import JamRoom from './JamRoom';
 import '../styles/Main.css';
 
 class App extends React.Component {
@@ -41,8 +42,12 @@ class App extends React.Component {
     
     render() {
         return (
-            <div className="ui textcontainer">
-                <div className="ui center aligned grid" style={{marginTop: '50px'}}>
+            <div className="ui fluid textcontainer" id="app-container">
+                <div className="ui center aligned grid">
+                    <div className="four wide column">
+                        <JamRoom />
+                    </div>
+                    
                     <div className="eight wide column">
                         <div className="ui fluid centered card" id="main-card">
                             <div className="content">
