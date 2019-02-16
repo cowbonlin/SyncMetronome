@@ -1,3 +1,17 @@
-#main-card {
-    background-color: #F4F3F2;
+#root, #app-container {
+    height: 100%;
+}
+
+
+#app-container {
+    padding: 50px 50px 0px;
+}
+
+.grid {
+    height: 100%;
+}
+
+.card {
+    height: 90%;
+    background-color: #F4F3F2 !important;
 }
