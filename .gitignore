@@ -1,3 +1,5 @@
 metronome.sublime-project
 metronome.sublime-workspace
 venv/
+__pycache__/
+*.db
