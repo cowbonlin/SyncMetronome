@@ -1,16 +1,27 @@
 import React from 'react';
 
+import server from '../api/server';
 import '../styles/Room.css';
 
 class Room extends React.Component {
-    state = {gotRoomCode: false, roomCode: null, inputRoomCode: ''};
+    state = {gotRoomCode: false, roomCode: null, connectionID: null, inputRoomCode: ''};
     
-    onCreateRoomClicked = () => {
-        this.setState({gotRoomCode: true, roomCode: '12334'});
+    onCreateRoomClicked = async () => {
+        const response = await server.post('/room/create');
+        if (response.data.status === 'suc') {
+            const {roomcode, cid} = response.data;
+            this.setState({gotRoomCode: true, roomCode: roomcode, connectionID: cid});
+        } else if (response.data.status === 'err') {
+            console.log('what the hell', response.data)
+        }
+        
     }
     
-    onLeaveRoomClicked = () => {
-        this.setState({gotRoomCode: false, roomCode: null});
+    onLeaveRoomClicked = async () => {
+        const response = await server.post('/room/leave', {cid: this.state.connectionID});
+        if (response.data.status === 'suc') {
+            this.setState({gotRoomCode: false, roomCode: null, connectionID: null});
+        }
     }
     
     onInputRoomCodeChange = value => {
